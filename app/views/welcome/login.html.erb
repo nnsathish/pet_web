@@ -1,0 +1,31 @@
+<div id="login_form">
+  <%= errors_for @user %>
+
+<div id='login' class='<%= 'hide' if params[:type] == 'register' %>' >
+<%= form_for @user, :url => login_path do |f| %>
+  <h3>Login</h3>
+
+  <%= input_with_label f, :username %>
+  <%= input_with_label f, :password %>
+  <%= hidden_field_tag :type, 'login' %>
+
+  <input type="submit" value="Login" />
+<% end %>
+</div>
+
+<label class='seperator <%= 'hide' if params[:type] %>'>OR</label>
+
+<div id='register' class='<%= 'hide' if params[:type] == 'login' %>'>
+<%= form_for @user, :url => login_path do |f| %>
+  <h3>Register</h3>
+
+  <%= input_with_label f, :username %>
+  <%= input_with_label f, :password %>
+  <%= input_with_label f, :password_confirmation %>
+  <%= input_with_label f, :email %>
+  <%= hidden_field_tag :type, 'register' %>
+
+  <input type="submit" value="Register" />
+<% end %>
+</div>
+<div class='clear' />

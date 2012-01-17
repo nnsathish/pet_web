@@ -1,0 +1,29 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@mixin left {
+  float: left;
+}
+@mixin head($size) {
+  font-size: $size;
+  font-weight: bold;
+}
+
+#login_form { 
+  margin: 50px 50px 0;
+  #login {
+    @include left;
+    margin-top: 50px;
+    width: 30%;
+  }
+  .seperator {
+    @include left;
+    @include head(15px);
+    margin: 135px 35px 0 25px;
+  }
+  #register {
+    @extend #login;
+    margin-top: 0px;
+  }
+}
