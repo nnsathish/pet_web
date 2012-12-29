@@ -1,0 +1,12 @@
+<%= input_with_label f, :total_income, 'Total Monthly Income (Rs.)' %>
+<h5>Planned Expenses</h5>
+
+<%= f.fields_for :budget_expenses do |expense_form| %>
+  <%= input_with_label expense_form, :amount %>
+<% end %>
+<p>
+    Add Expense
+</p>
+
+<div class="clear"></div>
+<input type='submit' class='btn btn-primary' value='Submit' />

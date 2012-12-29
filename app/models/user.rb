@@ -7,10 +7,14 @@ class User
   key :hashed_password, String
   key :salt, String
   key :extuid, String
+  key :setup_complete, Boolean, :default => false
 
   attr_accessor :password, :password_confirmation
 
   validates :password, :confirmation => true, :presence => true, :length => 8..12, :on => :create
+
+  has_one :budget, :dependent => :destroy
+  has_many :user_expenses, :dependent => :destroy
 
   before_create :hash_password
 
@@ -22,7 +26,7 @@ class User
   end
 
   def login
-    return self unless self.valid_for_login?
+    return self unless self.can_try_login?
     u = self.class[self.username]
     return add_error('Invalid username!') if u.nil?
     return add_error('Invalid password!') unless u.pass_match?(self.password)
@@ -44,7 +48,7 @@ class User
     self.hashed_password == self.hash_password(pass)
   end
 
-  def valid_for_login?
+  def can_try_login?
     self.errors.add_on_blank([:username, :password])
     self.errors.empty?
   end

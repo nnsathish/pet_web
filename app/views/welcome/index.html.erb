@@ -1,3 +1,13 @@
-<h3>Signed in..</h3>
+<% if current_user.setup_complete %>
+  Show Statistics
+<% elsif @budget %>
+  Step 2 - Add expenses
+<% else #first time user %>
+  <h3>Welcome <%= current_user.username %>!</h3>
+  <h4>Get started by planning your monthly budget</h4>
 
-<%= link_to 'Logout', logout_url %>
+  <%= form_for :budget, :url => create_budget_path, :class => 'form' do |f| %>
+    <%= render :partial => '/main/budget_fields', :locals => {:f => f} %>
+  <% end %>
+
+<% end %>
